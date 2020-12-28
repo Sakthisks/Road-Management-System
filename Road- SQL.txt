@@ -1,0 +1,147 @@
+﻿SQL> create table residents(aadharno number(10) primary key,name varchar2(20),ag
+e number(10),address varchar2(10),corporationid number(10));
+
+
+Table created.
+
+
+SQL> create table citycorporations(corporationid number(10),problemno number(10)
+,depthead varchar2(20),branchid number(10));
+
+
+Table created.
+
+
+SQL> create table branchoffice(branchid number(10),location varchar2(10),sid num
+ber(10));
+
+
+Table created.
+
+
+SQL> create table supervisor(sid number(10) primary key,sname varchar2(10),saddr
+ess varchar2(10),sage number(10),estimate_no number(10));
+
+
+Table created.
+
+
+ SQL> create table materials(estimate_no number(10) primary key,no_of_machines nu
+mber(10),type_of_locality varchar2(10),manpower number(10),aid number(10));
+
+
+Table created.
+
+
+SQL> create table corporationadmins(aid number(10) primary key,ca_name varchar2(
+10),ca_address varchar2(10),ca_age number(10),statno number(10));
+
+
+Table created.
+
+
+SQL> create table statistics(statno number(10) primary key,success_rate number(1
+0),no_of_repairs number(10),mid number(10));
+
+
+Table created.
+                                                                                foreign key
+SQL> alter table statistics add foreign key(mid) references major(mid);
+
+
+Table altered.
+
+
+SQL> alter table corporationadmin add foreign key(statno) references statistics(
+statno);
+alter table corporationadmin add foreign key(statno) references statistics(statn
+o)
+*
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+
+
+SQL> alter table corporationadmins add foreign key(statno) references statistics
+(statno);
+
+
+Table altered.
+
+
+SQL> alter table materials add foreign key(aid) references corporationadmins(aid
+);
+
+
+Table altered.
+
+
+SQL> alter table supervisor add foreign key(estimate_no) references materials(es
+timate_no);
+
+
+Table altered.
+
+
+SQL> alter table branchoffice add foreign key(sid) references supervisor(sid);
+
+
+Table altered.
+
+
+SQL> alter table citycorporations add foreign key(branchis) references braqnchof
+fice(branchid);
+
+
+
+
+SQL> alter table citycorporations add foreign key(branchid) references branchoff
+ice(branchid);
+
+
+
+
+SQL> alter table branchoffice add primary key(branchid);
+
+
+Table altered.
+
+
+SQL> alter table citycorporations add primary key(corporationid);
+
+
+Table altered.
+
+
+SQL> alter table citycorporations add foreign key(branchid) references branchoff
+ice(branchid);
+
+
+Table altered.
+
+
+
+
+SQL> alter table residents add foreign key(corporationid) references citycorpora
+tions(corporationid);
+
+
+Table altered.
+
+
+SQL> create table major(mid number(10) primary key,name varchar2(10),address var
+char2(10),city_under_control varchar2(10));
+
+
+Table created.
+
+
+SQL> create table system(sys_no number(10),clerkname varchar2(10),type_of_repair
+ varchar2(10),problemno number(10));
+
+
+Table created.
+
+
+SQL>
